@@ -9,6 +9,7 @@
 constexpr size_t ZetaRFPacketLength {8};
 constexpr uint8_t ZetaRFChannel {4};
 
+template <typename Config>
 class ZetaTestHelper
 {
 public:
@@ -71,11 +72,11 @@ public:
     }
 
 private:
-    ZetaRF433<ZetaRF::nSEL<6>, ZetaRF::SDN<9>, ZetaRF::nIRQ<8>> m_zeta;
+    ZetaRFConfig<Config, ZetaRFEZRadio::EZRadioSi4455<SpiHal<ZetaRF::nSEL<6>, ZetaRF::SDN<9>, ZetaRF::nIRQ<8>>>> m_zeta;
 };
 
 int main()
 {
-    ZetaTestHelper zetaTest;
+    ZetaTestHelper<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> zetaTest;
     zetaTest.measureRssi(30, 30*4);
 }
