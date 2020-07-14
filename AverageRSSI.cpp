@@ -9,6 +9,8 @@ template <typename Config>
 class AverageRSSITest : ZetaTestBase<Config>
 {
 public:
+    AverageRSSITest(size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
+
     void measureRssi(int testDuration, int expectedPackets=-1)
     {
         using namespace std::chrono;
@@ -57,6 +59,6 @@ public:
 
 int main()
 {
-    AverageRSSITest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> rssiTest;
+    AverageRSSITest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> rssiTest(8);
     rssiTest.measureRssi(30, 30*4);
 }

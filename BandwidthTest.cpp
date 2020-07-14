@@ -11,11 +11,13 @@ template <typename Config>
 class BandwidthTest : ZetaTestBase<Config>
 {
 public:
+    BandwidthTest(size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
+
     void measureBandwidth(int packets)
     {
         using namespace std::chrono;
 
-        auto data = generateRandomPacket(ZetaRFPacketLength);
+        auto data = generateRandomPacket(this->m_packetLength);
 
         auto start_time = steady_clock::now();
 
@@ -31,7 +33,7 @@ public:
 
         duration<double, std::milli> duration = end_time - start_time;
         seconds sec(1);
-        auto dataRate = (float) ZetaRFPacketLength * packets * 8 / (duration.count() * 1e-3);
+        auto dataRate = (float) this->m_packetLength * packets * 8 / (duration.count() * 1e-3);
 
         std::cout << "Sent " << packets << " packets in " << duration.count() << " ms (" << duration.count() / packets << " ms/packet) at " << dataRate << " kbps" << std::endl;
     }
@@ -53,7 +55,7 @@ private:
 
     bool transmitPacket(std::vector<uint8_t> data)
     {
-        if (this->m_zeta.requestBytesAvailableInTxFifo() < ZetaRFPacketLength)
+        if (this->m_zeta.requestBytesAvailableInTxFifo() < this->m_packetLength)
         {
             std::cout << "Not enough space in TX FIFO" << std::endl;
             return false;
@@ -72,6 +74,6 @@ private:
 
 int main()
 {
-    BandwidthTest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> bandwidthTest;
+    BandwidthTest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> bandwidthTest(64);
     bandwidthTest.measureBandwidth(5);
 }
