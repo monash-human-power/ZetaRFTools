@@ -21,8 +21,10 @@ public:
 
         for (int packet_num = 0; packet_num < packets; packet_num++)
         {
-            this->transmitPacket(data);
-            this->waitForPacketTransmitted();
+            if (this->transmitPacket(data))
+                this->waitForPacketTransmitted();
+            else
+                std::cout << "Failed to send packet" << std::endl;
         }
         
         auto end_time = steady_clock::now();
@@ -49,14 +51,14 @@ private:
         return data;
     }
 
-    void transmitPacket(std::vector<uint8_t> data)
+    bool transmitPacket(std::vector<uint8_t> data)
     {
         if (this->m_zeta.requestBytesAvailableInTxFifo() < ZetaRFPacketLength)
         {
             std::cout << "Not enough space in TX FIFO" << std::endl;
-            return;
+            return false;
         }
-        this->m_zeta.sendFixedLengthPacketOnChannel(4, &data[0]);
+        return this->m_zeta.sendFixedLengthPacketOnChannel(4, &data[0]);
     }
 
     void waitForPacketTransmitted()
