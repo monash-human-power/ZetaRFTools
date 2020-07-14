@@ -10,5 +10,10 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build)
 add_compile_definitions(WIRINGPI)
 include_directories(ZetaRF/src)
 
-add_executable(AverageRSSI AverageRSSI.cpp)
+file(GLOB_RECURSE CONFIG_SOURCES "configs/*.h" "configs/*.cpp")
+
+add_executable(AverageRSSI AverageRSSI.cpp ${CONFIG_SOURCES})
 target_link_libraries(AverageRSSI zetarf)
+
+add_executable(BandwidthTest BandwidthTest.cpp ${CONFIG_SOURCES})
+target_link_libraries(BandwidthTest zetarf)
