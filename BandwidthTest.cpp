@@ -31,11 +31,12 @@ public:
         
         auto end_time = steady_clock::now();
 
-        duration<double, std::milli> duration = end_time - start_time;
-        seconds sec(1);
-        auto dataRate = (float) this->m_packetLength * packets * 8 / (duration.count() * 1e-3);
+        duration<double, std::milli> duration_ms = end_time - start_time;
+        auto dataRate = (float) this->m_packetLength * packets * 8 / (duration_ms.count());
 
-        std::cout << "Sent " << packets << " packets in " << duration.count() << " ms (" << duration.count() / packets << " ms/packet) at " << dataRate << " kbps" << std::endl;
+        std::cout << "Sent " << packets << " packets in " << duration_ms.count() << " ms"
+            << " (" << duration_ms.count() / packets << " ms/packet)"
+            << " at " << dataRate << " kbps" << std::endl;
     }
 
 private:
