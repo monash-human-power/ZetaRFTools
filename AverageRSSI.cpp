@@ -21,6 +21,7 @@ public:
             expectedPackets = testDuration;
 
         std::vector<float> receivedRssi;
+        char data_dump[this->m_packetLength];
 
         const auto start_time = steady_clock::now();
         const auto end_time = start_time + seconds(testDuration);
@@ -34,6 +35,7 @@ public:
                     // See https://www.silabs.com/documents/public/data-sheets/Si4455.pdf
                     auto rssi = (float) this->m_zeta.latchedRssiValue() / 2 - 130;
                     receivedRssi.push_back(rssi);
+                    this->m_zeta.readPacketTo((uint8_t *)data_dump);
                     this->m_zeta.restartListeningSinglePacket();
                     std::cout << "+" << std::flush;
                 }
@@ -61,6 +63,6 @@ public:
 
 int main()
 {
-    AverageRSSITest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> rssiTest(64);
+    AverageRSSITest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8_128kbps> rssiTest(64);
     rssiTest.measureRssi(30, 30*4);
 }
