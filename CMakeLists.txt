@@ -20,3 +20,6 @@ target_link_libraries(BandwidthTest zetarf)
 
 add_executable(SimpleRx SimpleRx.cpp ${CONFIG_SOURCES})
 target_link_libraries(SimpleRx zetarf)
+
+add_executable(Beacon Beacon.cpp ${CONFIG_SOURCES})
+target_link_libraries(Beacon zetarf)
