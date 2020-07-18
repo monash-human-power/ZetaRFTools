@@ -20,7 +20,7 @@ public:
         if (expectedPackets == -1)
             expectedPackets = testDuration;
 
-        std::vector<uint8_t> receivedRssi;
+        std::vector<float> receivedRssi;
 
         const auto start_time = steady_clock::now();
         const auto end_time = start_time + seconds(testDuration);
@@ -31,7 +31,9 @@ public:
             {
                 if (ev & ZetaRF::Event::PacketReceived)
                 {
-                    receivedRssi.push_back(this->m_zeta.latchedRssiValue());
+                    // See https://www.silabs.com/documents/public/data-sheets/Si4455.pdf
+                    auto rssi = (float) this->m_zeta.latchedRssiValue() / 2 - 130;
+                    receivedRssi.push_back(rssi);
                     this->m_zeta.restartListeningSinglePacket();
                     std::cout << "+" << std::flush;
                 }
@@ -51,14 +53,14 @@ public:
         if (count == 0) return;
 
         std::sort(receivedRssi.begin(), receivedRssi.end());
-        std::cout << "Min:    " << (int) receivedRssi[0] << std::endl;
-        std::cout << "Median: " << (int) receivedRssi[count / 2] << std::endl;
-        std::cout << "Max:    " << (int) receivedRssi[count - 1] << std::endl;
+        std::cout << "Min:    " << receivedRssi[0]         << " dBm" << std::endl;
+        std::cout << "Median: " << receivedRssi[count / 2] << " dBm" << std::endl;
+        std::cout << "Max:    " << receivedRssi[count - 1] << " dBm" << std::endl;
     }
 };
 
 int main()
 {
-    AverageRSSITest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> rssiTest(8);
+    AverageRSSITest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> rssiTest(64);
     rssiTest.measureRssi(30, 30*4);
 }

@@ -47,12 +47,13 @@ private:
         {
             // We'll read data later
             // Get RSSI (only valid in single packet RX, before going back to RX)
-            uint8_t const rssi = this->m_zeta.latchedRssiValue();
+            // See https://www.silabs.com/documents/public/data-sheets/Si4455.pdf
+            auto const rssi = (float) this->m_zeta.latchedRssiValue() / 2 - 130;
 
             // Restart listening on the same channel
             this->m_zeta.restartListeningSinglePacket();
 
-            std::cout << "Packet received with RSSI: " << (int)rssi << std::endl;
+            std::cout << "Packet received with RSSI: " << rssi << " dBm" << std::endl;
         }
     }
 
