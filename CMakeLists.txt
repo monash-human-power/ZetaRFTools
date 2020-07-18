@@ -17,3 +17,6 @@ target_link_libraries(AverageRSSI zetarf)
 
 add_executable(BandwidthTest BandwidthTest.cpp ${CONFIG_SOURCES})
 target_link_libraries(BandwidthTest zetarf)
+
+add_executable(SimpleRx SimpleRx.cpp ${CONFIG_SOURCES})
+target_link_libraries(SimpleRx zetarf)
