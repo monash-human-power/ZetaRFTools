@@ -5,6 +5,9 @@
 
 #include <ZetaRF.h>
 
+#include "configs/si4455_revb1_bidir_fixed_crc_pre10_sync4_pay8_433mhz_20kbps.h"
+#include "configs/si4455_revb1_bidir_fixed_crc_pre10_sync4_pay8_433mhz_128kbps.h"
+
 constexpr uint8_t ZetaRFChannel {4};
 
 template <typename Config>
