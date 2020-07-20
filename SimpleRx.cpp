@@ -24,7 +24,9 @@ public:
             if (this->m_zeta.available())
                 this->readPacket();
 
-            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            // This is very short but needs to be this quick for fast data rates.
+            // If using a slower profile, 10ms is fine.
+            std::this_thread::sleep_for(std::chrono::milliseconds(2));
         }
     }
 

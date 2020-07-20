@@ -41,7 +41,9 @@ public:
                 }
             }
 
-            std::this_thread::sleep_for(10ms);
+            // This is very short but needs to be this quick for fast data rates.
+            // If using a slower profile, 10ms is fine.
+            std::this_thread::sleep_for(2ms);
         }
 
         std::cout << std::endl;
