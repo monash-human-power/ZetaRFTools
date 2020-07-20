@@ -10,7 +10,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${PROJECT_SOURCE_DIR}/build)
 add_compile_definitions(WIRINGPI)
 include_directories(ZetaRF/src)
 
-file(GLOB_RECURSE CONFIG_SOURCES "configs/*.h" "configs/*.cpp")
+file(GLOB_RECURSE CONFIG_SOURCES "configs/*.cpp")
 
 add_executable(AverageRSSI AverageRSSI.cpp ${CONFIG_SOURCES})
 target_link_libraries(AverageRSSI zetarf)

@@ -1,4 +1,4 @@
 [submodule "ZetaRF"]
 	path = ZetaRF
-	url = https://github.com/hallgchris/ZetaRF
-	branch = rpi-hal
+	url = https://github.com/GIPdA/ZetaRF
+	branch = v2

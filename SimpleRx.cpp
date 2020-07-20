@@ -5,7 +5,7 @@
 
 #include "ZetaTest.hpp"
 
-/* Derived from the SimpleRx example of the ZetaRF library.
+/* Derived from the SimpleRx example of the ZetaRf library.
    Much of this code is not original. */
 
 template <typename Config>
@@ -18,7 +18,7 @@ public:
     {
         while (true)
         {
-            if (ZetaRF::Events const ev = this->m_zeta.checkForEvent())
+            if (ZetaRf::Events const ev = this->m_zeta.checkForEvent())
                 this->processEvent(ev);
 
             if (this->m_zeta.available())
@@ -31,21 +31,21 @@ public:
     }
 
 private:
-    void processEvent(ZetaRF::Events const ev)
+    void processEvent(ZetaRf::Events const ev)
     {
-        if (ev & ZetaRF::Event::DeviceBusy)
+        if (ev & ZetaRf::Event::DeviceBusy)
         {
             // DeviceBusy error usually means the radio module is unresponding and need a reset.
             std::cout << "Error: Device Busy! Restarting..." << std::endl;
 
             if (!this->m_zeta.beginWithPacketLengthOf(this->m_packetLength))
             {
-                std::cout << "ZetaRF begin failed after comm error." << std::endl;
+                std::cout << "ZetaRf begin failed after comm error." << std::endl;
                 while (true) ;
             }
             this->m_zeta.restartListeningSinglePacket();
         }
-        if (ev & ZetaRF::Event::PacketReceived)
+        if (ev & ZetaRf::Event::PacketReceived)
         {
             // We'll read data later
             // Get RSSI (only valid in single packet RX, before going back to RX)
@@ -78,6 +78,6 @@ private:
 
 int main()
 {
-    SimpleRx<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> rx(64);
+    SimpleRx<ZetaRfConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> rx(64);
     rx.listen();
 }

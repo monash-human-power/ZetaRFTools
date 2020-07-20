@@ -30,7 +30,7 @@ public:
         {
             if (const auto ev = this->m_zeta.checkForEvent())
             {
-                if (ev & ZetaRF::Event::PacketReceived)
+                if (ev & ZetaRf::Event::PacketReceived)
                 {
                     // See https://www.silabs.com/documents/public/data-sheets/Si4455.pdf
                     auto rssi = (float) this->m_zeta.latchedRssiValue() / 2 - 130;
@@ -65,6 +65,6 @@ public:
 
 int main()
 {
-    AverageRSSITest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8_128kbps> rssiTest(64);
-    rssiTest.measureRssi(30, 30*4);
+    AverageRSSITest<ZetaRfConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> rssiTest(64);
+    rssiTest.measureRssi(30);
 }

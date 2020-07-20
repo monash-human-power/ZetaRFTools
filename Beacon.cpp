@@ -35,6 +35,6 @@ public:
 
 int main()
 {
-    Beacon<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> beacon(64);
+    Beacon<ZetaRfConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> beacon(64);
     beacon.begin(std::chrono::milliseconds(1000));
 }

@@ -3,12 +3,12 @@
 #include <random>
 #include <vector>
 
-#include <ZetaRF.h>
+#include <ZetaRf.hpp>
 
 #include "configs/si4455_revb1_bidir_fixed_crc_pre10_sync4_pay8_433mhz_20kbps.h"
 #include "configs/si4455_revb1_bidir_fixed_crc_pre10_sync4_pay8_433mhz_128kbps.h"
 
-constexpr uint8_t ZetaRFChannel {4};
+constexpr uint8_t ZetaRfChannel {4};
 
 template <typename Config>
 class ZetaTestBase
@@ -20,16 +20,16 @@ public:
         std::cout << "Starting Zeta TxRx..." << std::endl;
 
         if (!this->m_zeta.beginWithPacketLengthOf(this->m_packetLength))
-            throw "ZetaRF begin failed. Check wiring?";
+            throw "ZetaRf begin failed. Check wiring?";
 
-        if (!this->m_zeta.startListeningSinglePacketOnChannel(ZetaRFChannel))
-            throw "ZetaRF startListening failed.";
+        if (!this->m_zeta.startListeningSinglePacketOnChannel(ZetaRfChannel))
+            throw "ZetaRf startListening failed.";
 
         std::cout << "Init done." << std::endl;
     }
 
 protected:
-    ZetaRFConfig<Config, ZetaRFEZRadio::EZRadioSi4455<SpiHal<ZetaRF::nSEL<6>, ZetaRF::SDN<9>, ZetaRF::nIRQ<8>>>> m_zeta;
+    ZetaRfConfig<Config, ZetaRfEZRadio::EZRadioSi4455<SpiHal<ZetaRf::nSEL<6>, ZetaRf::SDN<9>, ZetaRf::nIRQ<8>>>> m_zeta;
     size_t m_packetLength;
 };
 
@@ -67,8 +67,8 @@ protected:
     void waitForPacketTransmitted()
     {
         while (true)
-            if (ZetaRF::Events const ev = this->m_zeta.checkForEvent())
-                if (ev & ZetaRF::Event::PacketTransmitted)
+            if (ZetaRf::Events const ev = this->m_zeta.checkForEvent())
+                if (ev & ZetaRf::Event::PacketTransmitted)
                     return;
     }
 };

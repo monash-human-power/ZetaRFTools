@@ -38,6 +38,6 @@ public:
 
 int main()
 {
-    BandwidthTest<ZetaRFConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> bandwidthTest(64);
+    BandwidthTest<ZetaRfConfigs::Config433_FixedLength_CRC_Preamble10_Sync4_Payload8> bandwidthTest(64);
     bandwidthTest.measureBandwidth(5);
 }
