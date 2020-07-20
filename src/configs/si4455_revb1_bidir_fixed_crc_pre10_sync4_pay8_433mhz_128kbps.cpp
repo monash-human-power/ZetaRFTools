@@ -1,5 +1,5 @@
 
-#include "si4455_revb1_bidir_fixed_crc_pre10_sync4_pay8_433mhz_128kbps.h"
+#include "si4455_revb1_bidir_fixed_crc_pre10_sync4_pay8_433mhz_128kbps.hpp"
 
 // INPUT DATA
 /*
