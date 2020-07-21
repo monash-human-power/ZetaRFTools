@@ -7,15 +7,15 @@ template <typename Config>
 class BandwidthTest : TransmitterBase<Config>
 {
 public:
-    BandwidthTest(size_t packetLength) : TransmitterBase<Config>(packetLength) {}
+    BandwidthTest(const size_t packetLength) : TransmitterBase<Config>(packetLength) {}
 
-    void measureBandwidth(int packets)
+    void measureBandwidth(const int packets)
     {
         using namespace std::chrono;
 
-        auto data = this->generateRandomPacket(this->m_packetLength);
+        const auto data = this->generateRandomPacket(this->m_packetLength);
 
-        auto start_time = steady_clock::now();
+        const auto start_time = steady_clock::now();
 
         for (int packet_num = 0; packet_num < packets; packet_num++)
         {
@@ -25,10 +25,10 @@ public:
                 std::cout << "Failed to send packet" << std::endl;
         }
 
-        auto end_time = steady_clock::now();
+        const auto end_time = steady_clock::now();
 
-        duration<double, std::milli> duration_ms = end_time - start_time;
-        auto dataRate = (float) this->m_packetLength * packets * 8 / (duration_ms.count());
+        const duration<double, std::milli> duration_ms = end_time - start_time;
+        const auto dataRate = (float) this->m_packetLength * packets * 8 / (duration_ms.count());
 
         std::cout << "Sent " << packets << " packets in " << duration_ms.count() << " ms"
             << " (" << duration_ms.count() / packets << " ms/packet)"

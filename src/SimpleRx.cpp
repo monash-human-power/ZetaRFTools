@@ -12,7 +12,7 @@ template <typename Config>
 class SimpleRx : ZetaTestBase<Config>
 {
 public:
-    SimpleRx(size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
+    SimpleRx(const size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
 
     void listen()
     {
@@ -31,7 +31,7 @@ public:
     }
 
 private:
-    void processEvent(ZetaRf::Events const ev)
+    void processEvent(const ZetaRf::Events ev)
     {
         if (ev & ZetaRf::Event::DeviceBusy)
         {

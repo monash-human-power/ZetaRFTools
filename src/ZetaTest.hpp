@@ -14,7 +14,7 @@ template <typename Config>
 class ZetaTestBase
 {
 public:
-    ZetaTestBase(size_t packetLength)
+    ZetaTestBase(const size_t packetLength)
         : m_packetLength(packetLength)
     {
         std::cout << "Starting Zeta TxRx..." << std::endl;
@@ -30,19 +30,19 @@ public:
 
 protected:
     ZetaRfConfig<Config, ZetaRfEZRadio::EZRadioSi4455<SpiHal<ZetaRf::nSEL<6>, ZetaRf::SDN<9>, ZetaRf::nIRQ<8>>>> m_zeta;
-    size_t m_packetLength;
+    const size_t m_packetLength;
 };
 
 template <typename Config>
 class TransmitterBase : public ZetaTestBase<Config>
 {
 public:
-    TransmitterBase(size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
+    TransmitterBase(const size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
 
 protected:
-    std::vector<uint8_t> generateRandomPacket(size_t size)
+    std::vector<uint8_t> generateRandomPacket(const size_t size) const
     {
-        std::independent_bits_engine<std::default_random_engine, 8, uint8_t> byte_engine;
+        const std::independent_bits_engine<std::default_random_engine, 8, uint8_t> byte_engine;
         std::vector<uint8_t> data(size);
         std::generate(data.begin(), data.end(), byte_engine);
 
@@ -54,7 +54,7 @@ protected:
         return data;
     }
 
-    bool transmitPacket(std::vector<uint8_t> data)
+    bool transmitPacket(const std::vector<uint8_t> data)
     {
         if (this->m_zeta.requestBytesAvailableInTxFifo() < this->m_packetLength)
         {

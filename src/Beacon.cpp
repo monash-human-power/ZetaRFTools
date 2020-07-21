@@ -9,11 +9,11 @@ class Beacon : TransmitterBase<Config>
 public:
     Beacon(size_t packetLength) : TransmitterBase<Config>(packetLength) {}
 
-    void begin(std::chrono::milliseconds interval)
+    void begin(const std::chrono::milliseconds interval)
     {
         using namespace std::chrono;
 
-        auto data = this->generateRandomPacket(this->m_packetLength);
+        auto const data = this->generateRandomPacket(this->m_packetLength);
 
         auto next_packet_time = steady_clock::now();
 

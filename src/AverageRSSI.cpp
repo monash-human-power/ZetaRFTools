@@ -9,9 +9,9 @@ template <typename Config>
 class AverageRSSITest : ZetaTestBase<Config>
 {
 public:
-    AverageRSSITest(size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
+    AverageRSSITest(const size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
 
-    void measureRssi(int testDuration, int expectedPackets=-1)
+    void measureRssi(const int testDuration, int expectedPackets=-1)
     {
         using namespace std::chrono;
         using namespace std::chrono_literals;
@@ -33,7 +33,7 @@ public:
                 if (ev & ZetaRf::Event::PacketReceived)
                 {
                     // See https://www.silabs.com/documents/public/data-sheets/Si4455.pdf
-                    auto rssi = (float) this->m_zeta.latchedRssiValue() / 2 - 130;
+                    const auto rssi = (float) this->m_zeta.latchedRssiValue() / 2 - 130;
                     receivedRssi.push_back(rssi);
                     this->m_zeta.readPacketTo((uint8_t *)data_dump);
                     this->m_zeta.restartListeningSinglePacket();
