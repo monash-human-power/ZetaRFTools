@@ -6,13 +6,27 @@ A collection of tools for experimenting with the ZetaRF radio module.
 
 ## Installation
 
-Clone the repository and initialise submodules with `git clone <url> --recurse-submodules`. If you've already cloned, run `git submodule update --init` to set up the submodules.
+1. Clone the repository and initialise submodules
+   ```bash
+    git clone <url> --recurse-submodules
+   ```
+   If the repository is already cloned, use
+   ```bash
+   git submodule update --init
+   ```
 
-You will need [CMake](https://cmake.org/) installed to build. Keep in mind that this project is intended to be built on the Pi, it won't compile on your local machine.
+2. Install [CMake](https://cmake.org/). Keep in mind that this project is intended to be built on the Pi, it won't compile on your local machine.
 
-Initialise the CMake project with `cmake .` in the root directory, and finally build by running `make`.
+3. Initialise the CMake project and build with
+    ```bash
+    cmake .
+    make
+    ```
 
-The binaries are built to the new `build` subdirectory, where they may be run with `./build/<tool name>`.
+4. The binaries are located in the new `build` sub directory. They may be run with
+    ```bash
+    ./build/<tool name>
+    ```
 
 ## Tools
 
