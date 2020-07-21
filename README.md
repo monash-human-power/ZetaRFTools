@@ -34,10 +34,10 @@ The following is a list of tools present in this repository.
 
 Name          | Description
 --------------|-------------
-AverageRSSI   | Listens for any and all packets, and measures the Received signal strength indication (RSSI) of each. You can set the duration the test runs for, and the expected number of packets for calculating drop percentages.
+AverageRSSI   | Listens for any and all packets, and measures the received signal strength indication (RSSI) of each. You can set the duration the test runs for, and the expected number of packets for calculating drop percentages.
 BandwidthTest | Tries to send a specified number of packets of a specified size as quickly as possible, and measures the speed that it does so.
 SimpleRx      | Prints all received messages as text and hex, as well as their RSSI.
-Beacon        | Sends a packet repeatedly at a given interval
+Beacon        | Sends a packet repeatedly at a given interval.
 
 ## Contributors ✨
 

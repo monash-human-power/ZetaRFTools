@@ -1,3 +1,9 @@
+/**
+ * Listens for any and all packets, and measures the received signal strength
+ * indication (RSSI) of each. You can set the duration the test runs for, and
+ * the expected number of packets for calculating drop percentages.
+ */
+
 #include <algorithm>
 #include <chrono>
 #include <thread>

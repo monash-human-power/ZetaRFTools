@@ -1,3 +1,8 @@
+/**
+ * Tries to send a specified number of packets of a specified size as quickly
+ * as possible, and measures the speed that it does so.
+ */
+
 #include <chrono>
 #include <thread>
 

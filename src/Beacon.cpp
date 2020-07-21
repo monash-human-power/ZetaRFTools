@@ -1,3 +1,7 @@
+/**
+ * Sends a packet repeatedly at a given interval.
+ */
+
 #include <chrono>
 #include <thread>
 

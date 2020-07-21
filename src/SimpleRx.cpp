@@ -1,3 +1,7 @@
+/**
+ * Prints all received messages as text and hex, as well as their RSSI.
+ */
+
 #include <chrono>
 #include <iomanip>
 #include <iostream>

@@ -1,3 +1,7 @@
+/**
+ * Base classes to handle the boilerplate work for the tools.
+ */
+
 #include <iomanip>
 #include <iostream>
 #include <random>
@@ -10,10 +14,20 @@
 
 constexpr uint8_t ZetaRfChannel {4};
 
+/**
+ * Simple base class providing initialisation of the Zeta module.
+ */
 template <typename Config>
 class ZetaTestBase
 {
 public:
+    /**
+     * Initialises the ZetaRF module represented by m_zeta.
+     *
+     * @param packetLength The size in bytes of packets to be sent and
+     *                     received. Packets not equal to this size will not be
+     *                     received. Must be less than or equal to 64.
+     */
     ZetaTestBase(const size_t packetLength)
         : m_packetLength(packetLength)
     {
@@ -33,6 +47,9 @@ protected:
     const size_t m_packetLength;
 };
 
+/**
+ * Base class with helper methods for generating and transmitting packets.
+ */
 template <typename Config>
 class TransmitterBase : public ZetaTestBase<Config>
 {
@@ -40,6 +57,14 @@ public:
     TransmitterBase(const size_t packetLength) : ZetaTestBase<Config>(packetLength) {}
 
 protected:
+    /**
+     * Generates a sequence of "random" bytes. In practice, the same packet is
+     * generated every time... But it's the thought that counts.
+     * https://xkcd.com/221/
+     *
+     * @param size The size of the random packet to generate, in bytes.
+     * @return The random packet, as a vector of size size.
+     */
     std::vector<uint8_t> generateRandomPacket(const size_t size) const
     {
         const std::independent_bits_engine<std::default_random_engine, 8, uint8_t> byte_engine;
@@ -54,6 +79,13 @@ protected:
         return data;
     }
 
+    /**
+     * Transmits a packet by radio. The packet should be of size
+     * m_packetLength.
+     *
+     * @param data The packet to be sent.
+     * @return true if the packet was sent successfully, else false
+     */
     bool transmitPacket(const std::vector<uint8_t> data)
     {
         if (this->m_zeta.requestBytesAvailableInTxFifo() < this->m_packetLength)
@@ -64,6 +96,9 @@ protected:
         return this->m_zeta.sendFixedLengthPacketOnChannel(4, &data[0]);
     }
 
+    /**
+     * Blocks and eventually returns once the packet is transmitted.
+     */
     void waitForPacketTransmitted()
     {
         while (true)
