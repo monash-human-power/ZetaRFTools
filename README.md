@@ -1,29 +1,43 @@
-# Project Title
+# ZetaRF Tools
 
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
-*Nice descrition of what this project actually does*
+A collection of tools for experimenting with the ZetaRF radio module.
 
-## Getting Started
+## Installation
 
-*Steps on how to run your project*
+1. Clone the repository and initialise submodules
+   ```bash
+    git clone <url> --recurse-submodules
+   ```
+   If the repository is already cloned, use
+   ```bash
+   git submodule update --init
+   ```
 
-- [ ] Installation steps
-- [ ] Build steps
-- [ ] Starting the project
+2. Install [CMake](https://cmake.org/). Keep in mind that this project is intended to be built on the Pi, it won't compile on your local machine.
 
-## TODOs
+3. Initialise the CMake project and build with
+    ```bash
+    cmake .
+    make
+    ```
 
-*To remove once you have everything done!*
+4. The binaries are located in the new `build` sub directory. They may be run with
+    ```bash
+    ./build/<tool name>
+    ```
 
-- [ ] `.env` file
-- [ ] Linters
-- [ ] travisCI files
-- [ ] Badges
-- [ ] Linting hooks
-- [ ] Basic unit tests
-- [ ] Contributor bots
-- [ ] Set `master` branch protection. Only allow Squash and Merge for PR's. At least 1 approval.
+## Tools
+
+The following is a list of tools present in this repository.
+
+Name          | Description
+--------------|-------------
+AverageRSSI   | Listens for any and all packets, and measures the received signal strength indication (RSSI) of each. You can set the duration the test runs for, and the expected number of packets for calculating drop percentages.
+BandwidthTest | Tries to send a specified number of packets of a specified size as quickly as possible, and measures the speed that it does so.
+SimpleRx      | Prints all received messages as text and hex, as well as their RSSI.
+Beacon        | Sends a packet repeatedly at a given interval.
 
 ## Contributors ✨
 
